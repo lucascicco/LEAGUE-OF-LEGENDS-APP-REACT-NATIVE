@@ -1,12 +1,25 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { Component } from 'react';
+import Background from '~/components/Background';
+import Tier from '~/components/Tier';
+import ButtonTouchable from '~/components/ButtonTouchable' 
+
+import { Container, Input, Title } from './styles';
 
 export default class SearchScreen extends Component {
     render() {
         return (
-            <View>
-                <Text> SearchScreen </Text>
-            </View>
+            <Background>
+                <Container>
+                    <Title>Pesquise o rank</Title>
+                    <Input 
+                        placeholder="Nome do invocador"
+                    />
+                    <ButtonTouchable>
+                        Pesquisar
+                    </ButtonTouchable>
+                    <Tier />
+                </Container>
+            </Background>
         )
     }
 }
