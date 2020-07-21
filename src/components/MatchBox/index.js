@@ -10,7 +10,6 @@ import {
 
 export default function MatchBox({ uri, win, kills, deaths, assists }) {
     const AMA = `${kills}/${deaths}/${assists}`
-
     return (
         <Container win={win}> 
             <Image

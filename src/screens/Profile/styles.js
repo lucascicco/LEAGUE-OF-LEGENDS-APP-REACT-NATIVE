@@ -13,7 +13,6 @@ export const Container = styled.KeyboardAvoidingView.attrs({
     justify-content: center;
     align-items: center;
     padding: 0 30px;
-    border:1px solid red;
 `;
 
 export const Form = styled.View`
@@ -48,3 +47,7 @@ export const Title = styled.Text`
     margin-bottom: 10px;
 `;
 
+export const SignOutButton = styled(Button)`
+  margin-top: 20px;
+  background: #f64c75;
+`;

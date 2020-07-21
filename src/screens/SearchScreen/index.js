@@ -1,25 +1,60 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Background from '~/components/Background';
 import Tier from '~/components/Tier';
-import ButtonTouchable from '~/components/ButtonTouchable' 
+import ButtonTouchable from '~/components/ButtonTouchable' ;
+import api from '~/services/api';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Container, Input, Title , FormView } from './styles';
 
-import { Container, Input, Title } from './styles';
+export default function SearchScreen(){
+        const [rank,setRank] = useState({})
+        const [nickname, setNickname] = useState('')
+        const [loading, setLoading] = useState(false)
 
-export default class SearchScreen extends Component {
-    render() {
+        async function HandleOnSubmit(){
+            try{        
+                setLoading(true)
+                const response = await api.get('searchingLeagueTierRoute', {
+                    params: {
+                        nickname
+                    }
+                })
+                setRank(response.data)
+                setLoading(false)
+            }catch(e){
+                setError(e)
+                setLoading(false)
+            }
+        }
+
+
         return (
             <Background>
                 <Container>
-                    <Title>Pesquise o rank</Title>
-                    <Input 
-                        placeholder="Nome do invocador"
-                    />
-                    <ButtonTouchable>
-                        Pesquisar
-                    </ButtonTouchable>
-                    <Tier />
+                    <FormView>
+                        <Title>Pesquise o rank</Title>
+                        <Input 
+                            placeholder="Nome de Invocador"
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                            returnkeytype="next"
+                            value={nickname}
+                            onChangeText={setNickname}
+                        />
+                        <ButtonTouchable onPress={HandleOnSubmit} loading={loading} >
+                            Pesquisar
+                        </ButtonTouchable>
+                    </FormView>
+                    
+                    {rank && <Tier RankedStatus={rank}/>}
                 </Container>
             </Background>
         )
-    }
+}
+
+SearchScreen.navigationOptions = {
+    tabBarLabel: 'Pesquisar',
+    tabBarIcon: ({ tintColor }) =>  (
+        <MaterialIcons name="search" size={20} color={tintColor} />
+    )  
 }

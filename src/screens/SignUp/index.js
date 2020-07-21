@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import {Image} from 'react-native'
+import React, { useRef, useState } from 'react';
 import Background from '~/components/Background';
+
+
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpRequest } from '~/store/modules/auth/actions';
+
 
 import {
     Container,
@@ -12,41 +16,55 @@ import {
     Strong,
   } from './styles';
 
-export default class SignUp extends Component {
-    render() {
+export default function SignUp({ navigation }){
+        const dispatch = useDispatch();
+        const loading = useSelector(state => state.auth.loading)
+
+        const emailRef = useRef();
+        const passwordRef = useRef();
+    
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+
+        function handleSubmit(){
+            console.log(email, password)
+            dispatch(signUpRequest(email, password))
+       }
+
         return (
             <Background>
                 <Container> 
                     <Form>
-                        <FormInput
-                          icon="mail-outline"
-                          placeholder="Email"
-                          keyboardType="email-address"
-                          autoCorrect={false}
-                          autoCapitalize="none"
-                          returnKeyType="Próximo"
-                        />
+                         <FormInput
+                                icon="mail-outline"
+                                placeholder="Email"
+                                keyboardType="email-address"
+                                autoCorrect={false}
+                                autoCapitalize="none"
+                                ref={emailRef}
+                                returnKeyType="next"
+                                onSubmitEditing={() => passwordRef.current.focus()}
+                                value={email}
+                                onChangeText={setEmail}
+                            />
 
-                        <FormInput
-                          icon="lock-outline"
-                          secureTextEntry
-                          placeholder="Senha"
-                         returnkKeyType="Próximo"
-                        />
+                            <FormInput
+                                icon="lock-outline"
+                                placeholder="Senha"
+                                secureTextEntry
+                                ref={passwordRef}
+                                returnKeyType="send"
+                                onSubmitEditing={handleSubmit}
+                                value={password}
+                                onChangeText={setPassword}
+                            />
 
-                        <FormInput
-                            icon="lock-outline"
-                            secureTextEntry
-                            placeholder="Confirmar Senha"
-                            returnkKeyType="Enviar"
-                        />
-
-                        <SubmitButton>
+                        <SubmitButton onPress={handleSubmit}>
                           Cadastrar
                         </SubmitButton>
                     </Form>
 
-                    <SignLink>
+                    <SignLink onPress={() => navigation.navigate('Login')}>
                         <SignLinkText>
                             <Strong>Já possui conta?</Strong> 
                         </SignLinkText>
@@ -54,5 +72,4 @@ export default class SignUp extends Component {
                 </Container>
             </Background>
         )
-    }
 }

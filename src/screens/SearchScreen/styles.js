@@ -1,12 +1,19 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     flex: 1;
     justify-content: center;
     align-items: center;
-    padding: 0 30px;
+    border: 1px solid red;
 `;
 
+export const FormView = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid red;
+`
 export const Input = styled.TextInput`
     background: #fff;
     width: 80%;

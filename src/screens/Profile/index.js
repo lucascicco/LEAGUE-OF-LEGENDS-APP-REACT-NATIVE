@@ -1,18 +1,50 @@
-import React, { Component } from 'react';
-import {Image} from 'react-native'
+import React , { useState, useRef } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
+
 import Background from '~/components/Background';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import {
     Container,
     Form,
     FormInput,
     SubmitButton,
-    Strong,
+    SignOutButton,
     Title
   } from './styles';
 
-export default class Profile extends Component {
-    render() {
+export default function Profile(){
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.user.profile);
+
+    const emailRef = useRef();
+    const oldPasswordRef = useRef();
+    const passwordRef = useRef();
+
+    const [nickname, setNickname] = useState(profile.nickname);
+    const [email, setEmail] = useState(profile.email);
+    const [oldPassword, setOldPassword] = useState('');
+    const [password, setPassword] = useState('');
+
+
+    function handleSubmit() {
+        dispatch(
+          updateProfileRequest({
+            nickname,
+            email,
+            oldPassword,
+            password,
+          })
+        );
+      }
+
+      function handleSignOut(){
+          dispatch(signOut())
+      }
+      
         return (
             <Background>
                 <Container>
@@ -22,7 +54,10 @@ export default class Profile extends Component {
                             placeholder="Nome de Invocador"
                             autoCorrect={false}
                             autoCapitalize="none"
-                            returnKeyType="Próximo"
+                            returnkeytype="next"
+                            value={nickname}
+                            onChangeText={setNickname}
+                            onSubmitEditing={() => emailRef.current.focus()}
                         />
 
                         <FormInput
@@ -31,29 +66,50 @@ export default class Profile extends Component {
                             keyboardType="email-address"
                             autoCorrect={false}
                             autoCapitalize="none"
-                            returnKeyType="Próximo"
+                            returnkeytype="next"
+                            value={email}
+                            onChangeText={setEmail}
+                            ref={emailRef}
+                            onSubmitEditing={() => oldPasswordRef.current.focus()}
                         />
 
                         <FormInput
                             icon="lock-outline"
                             secureTextEntry
                             placeholder="Senha Atual"
-                            returnkKeyType="Próximo"
+                            returnkeytype="next"
+                            value={oldPassword}
+                            onChangeText={setOldPassword}   
+                            ref={oldPasswordRef}
+                            onSubmitEditing={() => passwordRef.current.focus()}
                         />
 
                         <FormInput
                             icon="lock-outline"
                             secureTextEntry
                             placeholder="Nova Senha"
-                            returnkKeyType="Enviar"
+                            returnkeytype="send"
+                            value={password}
+                            onChangeText={setPassword}
+                            ref={passwordRef}
                         />
 
-                        <SubmitButton>
+                        <SubmitButton onPress={handleSubmit}>
                             Atualizar
                         </SubmitButton>
+
+                        <SignOutButton onPress={handleSignOut}>
+                            Sair
+                        </SignOutButton>
                     </Form>
                 </Container>
             </Background>
         )
-    }
+}
+
+Profile.navigationOptions = {
+    tabBarLabel: 'Atualizar Perfil',
+    tabBarIcon: ({ tintColor }) =>  (
+        <MaterialIcons name="settings" size={20} color={tintColor} />
+    )  
 }

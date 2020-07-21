@@ -16,8 +16,8 @@ export function GenerationRequire(rank){
             return require('~/assets/Ranks/DIAMOND.png')
         case 'MASTER':  
             return require('~/assets/Ranks/MASTER.png')
-        case 'GRANMASTER':
-            return require('~/assets/Ranks/GRANMASTER.png')
+        case 'GRANDMASTER':
+            return require('~/assets/Ranks/GRANDMASTER.png')
         case 'CHALLENGER':
             return require('~/assets/Ranks/CHALLENGER.png')
         default:

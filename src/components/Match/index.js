@@ -7,17 +7,16 @@ import {
     Container
 } from './styles';
 
-export default function Match() {
-
+export default function Match({Matches}) {
     return (
         <Container>
             <FlatList 
-                data={matches}
+                data={Matches}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.gameId}
-                renderItem={({ item }) => (
-
+                keyExtractor={item => item.gameId.toString()}
+                renderItem={({item}) => (
                     <MatchBox 
+                        champion={item.championId}
                         win={item.win}
                         kills={item.kills}
                         deaths={item.deaths}
@@ -25,7 +24,6 @@ export default function Match() {
                     />
                 )}       
             />
-
         </Container>
     )
 }
