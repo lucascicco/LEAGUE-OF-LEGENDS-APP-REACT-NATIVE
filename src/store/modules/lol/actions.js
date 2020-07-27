@@ -5,9 +5,3 @@ export function MatchListAdd(Matchlist){
     }
 }
 
-
-export function MatchListClean(){
-    return {
-        type: '@auth/MATCH_LIST_REMOVEALL',
-    }
-}

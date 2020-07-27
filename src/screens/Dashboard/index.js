@@ -1,27 +1,32 @@
-import React, {useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, {useState, useEffect, Fragment} from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { useSelector ,useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 import Background from '~/components/Background';
 import { withNavigationFocus } from 'react-navigation';
 import {  MatchListAdd } from '~/store/modules/lol/actions';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+
 import api from '~/services/api';
 import Tier from '~/components/Tier';
 import Match from '~/components/Match';
 
+import {Alert} from 'react-native';
 import {Container} from './styles';
-import { Alert } from 'react-native';
 
 
-function Dashboard({isFocused}){
+
+function Dashboard(){
         const [ranked, setRanked] = useState([])
-        const [matches, setMatches] = useState([])
-        const [e, setError] = useState('')
-        const [loading, setLoading] = useState('')
+        const [refresh, setRefresh] = useState(false)
+        const [loading, setLoading] = useState(true)
+        const [error, setError] = useState('')
 
-        const nickname = useSelector(state => state.user.profile.nickname)
-        
+        const dispatch = useDispatch()
+
+        const nickname = useSelector(state => state.user.profile.nickname);
+        const matchlist = useSelector(state => state.lol.Matchlist);
+
         async function HandleGrabRanked(){
             try{    
                 const responseTier = await api.get('searchingLeagueTierRoute', {
@@ -31,77 +36,87 @@ function Dashboard({isFocused}){
                 })
 
                 setRanked(responseTier.data)
-
             }catch(e){
-                setError(e)
+                Alert.alert(
+                    'Erro no sistema',
+                    'Por favor, aguarde um instante.'
+                )
+                setError('Erro 1')
             }
         }
 
+        async function handleOnRefresh(){
+            setRefresh(true)
+            await HandleMatchList()
+        }
+
+
         async function HandleMatchList(){
-            try{    
-                const responseMatches = await api.get('MatchListRoute', {
+            try{   
+                const responseMatches = await api.get('MatchListRankedGames', {
                     params: {
                         nickname
                     }
                 })  
                 
-                const dataMatches= responseMatches.data.matches
-
-                const RANKED_SOLO_5v5 = dataMatches.filter(item => {
-                    return item.queue === 420
-                })
-
-                const partidas = RANKED_SOLO_5v5.slice(0,1)
+                const matches = responseMatches.data
                 
-                const promises = partidas.map(async item => {
-                    const responseMatch = await api.get('MatchDetailRoute', {
-                        params: {
-                            gameId: item.gameId
-                        }
-                    })
-
-                    const data = responseMatch.data.data
-                 
-                    const {participantId} = data.participantIdentities.find(item => {
-                        return item.player.summonerName.toLowerCase() === nickname.toLowerCase()
-                    })
-        
-                    const participant = data.participants.find(item => {
-                        return item.participantId === participantId
-                    })
-        
-                    const {win, kills, deaths, assists} = participant.stats
-                    const {championId} = participant
-        
-                    return {
-                        gameId: data.gameId,
-                        win,
-                        kills,
-                        deaths,
-                        assists,
-                        championId
+                const linking = async (matches) => {
+                  let results=[]
+                    for(let item of matches){
+                        const details = await api.get('MatchDetailRoute', {
+                            params: {
+                              gameId: item.gameId
+                            }
+                        })
+                        results.push(details.data)
                     }
-                })
-    
-                const results = await Promise.all(promises)
+
+                    return results
+                }
+
+                linking(matches).then(results => {
+                   dispatch(MatchListAdd(results))
+                })  
+
+                setLoading(false)
+                setRefresh(false)
             }catch(e){
-                setError(e)
+                setError('Erro 2')
+                Alert.alert(
+                    'Erro no sistema X',
+                    'Por favor, aguarde um instante.'
+                )
+                setRefresh(false)
+                setLoading(false)
             }
         }
         
         useEffect(() => {
-            if(isFocused){
-                HandleGrabRanked()
-                HandleMatchList()
-            } 
-        },[nickname, isFocused])
+            async function fecthdata(){
+                await HandleGrabRanked()
+            }
+            
+            fecthdata()          
+        },[nickname])
 
 
         return(
                 <Background>
                     <Container>
-                        <Tier RankedStatus={ranked}/>
-                        <Match Matches={matches} />
+                        {loading ? (
+                            <View>
+                                {/* Aguarde invocador... estamos buscando seus dados!*/}
+                                <ActivityIndicator size="large" color="#fff" />
+                            </View>
+                        ) : (
+                            <Fragment>
+                                <Tier RankedStatus={ranked}/>
+                                {matchlist && (
+                                    <Match Matches={matchlist} refreshing={refresh} onRefresh={handleOnRefresh}/>
+                                )}
+                            </Fragment>
+                        )} 
                     </Container>
                 </Background>
             )
@@ -116,8 +131,5 @@ Dashboard.navigationOptions = {
     )  
 }
 
-Dashboard.propTypes = {
-    isFocused: PropTypes.bool.isRequired,
-  };
-
 export default withNavigationFocus(Dashboard);
+

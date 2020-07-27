@@ -1,6 +1,7 @@
 import { Alert } from 'react-native'
 import { takeLatest , call, put, all } from 'redux-saga/effects';
 import { signInSuccess, signFailure, signUpSuccess} from './actions';
+import { updateNicknameSuccess } from '../user/actions';
 import api from '~/services/api';
 
 export function* signIn({ payload }){
@@ -13,10 +14,21 @@ export function* signIn({ payload }){
         });
 
         const { token , user } = response.data;
-        
+            
         api.defaults.headers.Authorization = `Bearer ${token}`
 
         yield put(signInSuccess(token, user))
+
+
+        if(user.nickname){
+            const NicknameResponse = yield call(api.get, 'searchingNameRoute', {
+                params: {
+                   nickname: user.nickname
+                }
+             })
+
+            yield put(updateNicknameSuccess(NicknameResponse.data))
+        }
         
     }catch(e){
 
@@ -43,7 +55,6 @@ export function* signUp({ payload }){
         api.defaults.headers.Authorization = `Bearer ${token}`
 
         yield put(signUpSuccess(token, user))
-
     }catch(err){
         Alert.alert(
             'Falha no cadastro', 

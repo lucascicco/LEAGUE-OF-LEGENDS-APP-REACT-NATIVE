@@ -1,28 +1,38 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import MatchBox from '../MatchBox';
-import matches from '~/utils/matches';
+
 
 import {
     Container
 } from './styles';
 
-export default function Match({Matches}) {
+export default function Match({Matches, refreshing, onRefresh}) {
     return (
         <Container>
             <FlatList 
                 data={Matches}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.gameId.toString()}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => (
-                    <MatchBox 
+                    <MatchBox
                         champion={item.championId}
                         win={item.win}
                         kills={item.kills}
                         deaths={item.deaths}
                         assists={item.assists}
                     />
-                )}       
+                )}  
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        title="Puxe para recarregar"
+                        tintColor="#fff"
+                        titleColor="#fff"
+                        colors={["red", "green", "blue"]}
+                     />
+                  }
             />
         </Container>
     )

@@ -59,6 +59,7 @@ export default function Login({ navigation }){
                             secureTextEntry
                             placeholder="Senha"
                             returnkeytype="send"
+                            ref={passwordRef}
                             onSubmitEditing={handleSubmit}
                             value={password}
                             onChangeText={setPassword}

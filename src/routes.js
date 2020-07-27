@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
-import Dashboard from './screens/Dashboard';
+import Dashboard from './screens/Dashboard/new';
 import FirstAccess from './screens/FirstAccess';
 import SearchScreen from './screens/SearchScreen';
 import Profile from './screens/Profile';

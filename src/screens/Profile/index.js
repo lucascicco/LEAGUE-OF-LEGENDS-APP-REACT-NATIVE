@@ -1,11 +1,10 @@
 import React , { useState, useRef } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 import { signOut } from '~/store/modules/auth/actions';
-
 import Background from '~/components/Background';
 import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableWithoutFeedback , Keyboard} from 'react-native';
 
 import {
     Container,
@@ -46,64 +45,67 @@ export default function Profile(){
       }
       
         return (
-            <Background>
-                <Container>
-                    <Title>Atualize seus dados</Title>
-                    <Form>
-                         <FormInput
-                            placeholder="Nome de Invocador"
-                            autoCorrect={false}
-                            autoCapitalize="none"
-                            returnkeytype="next"
-                            value={nickname}
-                            onChangeText={setNickname}
-                            onSubmitEditing={() => emailRef.current.focus()}
-                        />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Background>
+                     <Container>
+                         <Title>Atualize seus dados</Title>
+                         <Form>
+                              <FormInput
+                                 placeholder="Nome de Invocador"
+                                 autoCorrect={false}
+                                 autoCapitalize="none"
+                                 returnkeytype="next"
+                                 value={nickname}
+                                 onChangeText={setNickname}
+                                 onSubmitEditing={() => emailRef.current.focus()}
+                             />
 
-                        <FormInput
-                            icon="mail-outline"
-                            placeholder="Email"
-                            keyboardType="email-address"
-                            autoCorrect={false}
-                            autoCapitalize="none"
-                            returnkeytype="next"
-                            value={email}
-                            onChangeText={setEmail}
-                            ref={emailRef}
-                            onSubmitEditing={() => oldPasswordRef.current.focus()}
-                        />
+                             <FormInput
+                                 icon="mail-outline"
+                                 placeholder="Email"
+                                 keyboardType="email-address"
+                                 autoCorrect={false}
+                                 autoCapitalize="none"
+                                 returnkeytype="next"
+                                 value={email}
+                                 onChangeText={setEmail}
+                                 ref={emailRef}
+                                 onSubmitEditing={() => oldPasswordRef.current.focus()}
+                             />
 
-                        <FormInput
-                            icon="lock-outline"
-                            secureTextEntry
-                            placeholder="Senha Atual"
-                            returnkeytype="next"
-                            value={oldPassword}
-                            onChangeText={setOldPassword}   
-                            ref={oldPasswordRef}
-                            onSubmitEditing={() => passwordRef.current.focus()}
-                        />
+                             <FormInput
+                                 icon="lock-outline"
+                                 secureTextEntry
+                                 placeholder="Senha Atual"
+                                 returnkeytype="next"
+                                 value={oldPassword}
+                                 onChangeText={setOldPassword}   
+                                 ref={oldPasswordRef}
+                                 onSubmitEditing={() => passwordRef.current.focus()}
+                             />
 
-                        <FormInput
-                            icon="lock-outline"
-                            secureTextEntry
-                            placeholder="Nova Senha"
-                            returnkeytype="send"
-                            value={password}
-                            onChangeText={setPassword}
-                            ref={passwordRef}
-                        />
+                             <FormInput
+                                 icon="lock-outline"
+                                 secureTextEntry
+                                 placeholder="Nova Senha"
+                                 returnkeytype="send"
+                                 value={password}
+                                 onChangeText={setPassword}
+                                 ref={passwordRef}
+                                 onSubmitEditing={() => handleSubmit}
+                             />
 
-                        <SubmitButton onPress={handleSubmit}>
-                            Atualizar
-                        </SubmitButton>
+                             <SubmitButton onPress={handleSubmit}>
+                                 Atualizar
+                             </SubmitButton>
 
-                        <SignOutButton onPress={handleSignOut}>
-                            Sair
-                        </SignOutButton>
-                    </Form>
-                </Container>
-            </Background>
+                             <SignOutButton onPress={handleSignOut}>
+                                 Sair
+                             </SignOutButton>
+                         </Form>
+                     </Container>
+                    </Background>
+            </TouchableWithoutFeedback>
         )
 }
 

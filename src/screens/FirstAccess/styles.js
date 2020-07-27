@@ -4,12 +4,11 @@ export const Container = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    padding: 0 30px;
 `;
 
 export const Input = styled.TextInput`
     background: #fff;
-    width: 80%;
+    width: 250px;
     height: 50px;
     textAlign: center;
     border-radius: 4px;

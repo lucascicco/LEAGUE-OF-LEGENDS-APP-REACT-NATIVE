@@ -7,17 +7,18 @@ import Button from '~/components/Button';
 
 export const Container = styled.KeyboardAvoidingView.attrs({
     enabled: Platform.OS === 'ios',
-    behavior: 'padding',
+    behavior: 'height',
   })`
     flex: 1;
     justify-content: center;
     align-items: center;
     padding: 0 30px;
+    border:1px solid red;
 `;
 
 export const Form = styled.View`
     align-self: stretch;
-    margin-top: 10px;
+    border: 1px solid red;
 `;
 
 export const FormInput = styled(Input)`

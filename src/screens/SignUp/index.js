@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Background from '~/components/Background';
-
-
+import { TouchableWithoutFeedback , Keyboard} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpRequest } from '~/store/modules/auth/actions';
 
@@ -32,6 +31,7 @@ export default function SignUp({ navigation }){
        }
 
         return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Background>
                 <Container> 
                     <Form>
@@ -69,7 +69,9 @@ export default function SignUp({ navigation }){
                             <Strong>Já possui conta?</Strong> 
                         </SignLinkText>
                     </SignLink>
+                    
                 </Container>
             </Background>
-        )
+        </TouchableWithoutFeedback>
+    )
 }

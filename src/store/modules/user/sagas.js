@@ -27,8 +27,8 @@ export function* updateProfile({payload}){
       })
 
       yield put(updateProfileSuccess(response.data))
-      
       yield put(updateNicknameSuccess(NicknameOnChange.data))
+
    }catch(e){
       Alert.alert(
          'Falha na autenticação',
@@ -56,6 +56,7 @@ export function* updateNickname({ payload }){
          nickname: response.data.nickname
       })
 
+      
    }catch(e){
 
       Alert.alert(
