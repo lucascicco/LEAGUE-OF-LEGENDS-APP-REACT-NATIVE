@@ -25,6 +25,7 @@ export function* signIn({ payload }){
                 params: {
                    nickname: user.nickname
                 }
+
              })
 
             yield put(updateNicknameSuccess(NicknameResponse.data))

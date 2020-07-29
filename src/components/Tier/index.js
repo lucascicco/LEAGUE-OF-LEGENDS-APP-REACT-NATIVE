@@ -15,7 +15,6 @@ export default function Tier({RankedStatus}) {
         <Container>
             {tier !== 'UNRANKED' ? (
                 <Fragment>
-                    <Title>{queueType}</Title>
                         <Title>{tier} {rank}</Title>
                         <Image 
                             source={GenerationRequire(tier)}

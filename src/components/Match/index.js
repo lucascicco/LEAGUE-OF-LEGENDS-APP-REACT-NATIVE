@@ -16,6 +16,7 @@ export default function Match({Matches, refreshing, onRefresh}) {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => (
                     <MatchBox
+                        championUrl={item.championUrl}
                         champion={item.championId}
                         win={item.win}
                         kills={item.kills}

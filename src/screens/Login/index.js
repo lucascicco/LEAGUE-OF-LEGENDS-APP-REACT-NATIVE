@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {Image} from 'react-native';
+import {Image, TouchableWithoutFeedback , Keyboard} from 'react-native';
 import Background from '~/components/Background';
 
 
@@ -32,6 +32,7 @@ export default function Login({ navigation }){
         }
 
         return (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Background>
                 <Container>
                     <Image 
@@ -78,6 +79,7 @@ export default function Login({ navigation }){
                     </SignLink>
 
                 </Container>
-            </Background>
+              </Background>
+          </TouchableWithoutFeedback>
         )
 }

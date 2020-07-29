@@ -8,16 +8,15 @@ import {
     KDA
 } from './styles';
 
-export default function MatchBox({ uri, win, kills, deaths, assists }) {
+export default function MatchBox({ championUrl, win, kills, deaths, assists }) {
     const AMA = `${kills}/${deaths}/${assists}`
     return (
         <Container win={win}> 
             <Image
-                source={{uri: 'https://iconbug.com/data/06/512/0ee4271455327b88c47ab2326dde7e78.png' }}
-                style={{ borderRadius: 10, width: 80, height: 80}}
-                resizeMode='contain'
+                source={{uri: championUrl }}
+                style={{ borderRadius: 60, width: 100, height: 90}}
+                resizeMode="stretch"      
             />
-
             <Status>
                 <Title>{win ? 'Vitória' : 'Derrota' }</Title>
                 <KDA>{AMA}</KDA>

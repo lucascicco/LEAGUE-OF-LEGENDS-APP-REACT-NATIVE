@@ -6,6 +6,7 @@ import { updateProfileSuccess , updateProfileFailure, updateNicknameSuccess } fr
 export function* updateProfile({payload}){
    try{
       const {email, nickname, ...rest } = payload.data;
+      console.log(nickname)
 
       const profile = {
           email,
@@ -15,19 +16,21 @@ export function* updateProfile({payload}){
 
       const response = yield call(api.put, 'users', profile)
 
-      Alert.alert(
-         'Sucesso!',
-         'Perfil atualizado com successo!'
-      )
-      
       const NicknameOnChange = yield call(api.get, 'searchingNameRoute', {
          params: {
             nickname
          }
       })
+      
+      console.log(NicknameOnChange.data)
 
       yield put(updateProfileSuccess(response.data))
       yield put(updateNicknameSuccess(NicknameOnChange.data))
+
+      Alert.alert(
+         'Sucesso!',
+         'Perfil atualizado com successo!'
+      )
 
    }catch(e){
       Alert.alert(

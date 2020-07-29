@@ -36,7 +36,7 @@ class Dashboard extends React.Component{
     TierOpacity =  new Animated.Value(0)
 
     startAnimation = () => {
-        Animated.timing(this.state.animation,{
+        Animated.timing(this.state.animation, {
             toValue: 0,
             duration : 2500,
             useNativeDriver: true   
@@ -47,7 +47,7 @@ class Dashboard extends React.Component{
         try{    
             const responseTier = await api.get('searchingLeagueTierRoute', {
                 params: {
-                    nickname: this.props.nickname
+                    nickname: this.props.profile.nickname
                 }
             })
 
@@ -67,6 +67,10 @@ class Dashboard extends React.Component{
         await this.HandleMatchList()
     }
 
+    sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
 
     HandleMatchList = async () => {
         try{   
@@ -74,7 +78,7 @@ class Dashboard extends React.Component{
 
             const responseMatches = await api.get('MatchListRankedGames', {
                 params: {
-                    nickname: this.props.nickname
+                    nickname: this.props.profile.nickname,
                 }
             })  
             
@@ -84,11 +88,7 @@ class Dashboard extends React.Component{
               let results=[]
 
                 for(let item of matches){
-                    const details = await api.get('MatchDetailRoute', {
-                        params: {
-                          gameId: item.gameId
-                        }
-                    })
+                    const details = await api.get(`/MatchDetailRoute?gameId=${item.gameId}&accountId=${this.props.profile.account_id}`)
                     results.push(details.data)
                 }
 
@@ -101,9 +101,7 @@ class Dashboard extends React.Component{
                this.setState({ loading2: false })
                this.startAnimation()
             })  
-
-    
-
+            
         }catch(e){
             this.setState({error: 'Erro 1'})
 
@@ -117,6 +115,7 @@ class Dashboard extends React.Component{
     }   
 
     async componentDidMount(){
+        console.log(this.props.profile)
         await this.HandleGrabRanked()
         this.setState({ loading: false })
 
@@ -169,7 +168,9 @@ class Dashboard extends React.Component{
                             
 
                             {this.state.ranked.tier === 'UNRANKED' ? (
-                                <Text>Jogador não possui histórico para partidas ranqueadas</Text>
+                                <View style={styles.viewLayout}>
+                                    <Text style={styles.TextLoading}>Jogador não possui histórico para partidas ranqueadas</Text>
+                                </View>
                             ) : (
                                 <Fragment>
                                     {this.state.loading2 ? (
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
       matchlist: state.lol.Matchlist,
-      nickname: state.user.profile.nickname
+      profile: state.user.profile
     };
   };
 

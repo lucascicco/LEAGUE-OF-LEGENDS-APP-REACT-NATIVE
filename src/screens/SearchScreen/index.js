@@ -5,7 +5,7 @@ import ButtonTouchable from '~/components/ButtonTouchable' ;
 import api from '~/services/api';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Container, Input, Title , FormView } from './styles';
-import {Alert , Keyboard, LayoutAnimation } from 'react-native';
+import {Alert , Keyboard, LayoutAnimation, TouchableWithoutFeedback } from 'react-native';
 
 const State = {
     Launching: 'Launching',
@@ -52,8 +52,7 @@ export default function SearchScreen(){
                     setTransitionState(State.WillTransitionIn)
                     setRank(response.data)
                     setLoading(false)
-                   
-        
+
                 }catch(e){
                     Alert.alert(
                         'Erro',
@@ -66,30 +65,32 @@ export default function SearchScreen(){
 
 
         return (
-            <Background>
-
-                    <Container>
-                        <FormView>
-                            <Title>Pesquise o rank</Title>
-                            <Input 
-                                placeholder="Nome de Invocador"
-                                autoCorrect={false}
-                                autoCapitalize="none"
-                                returnkeytype="next"
-                                value={nickname}
-                                onChangeText={setNickname}
-                            />
-                            <ButtonTouchable onPress={HandleOnSubmit} loading={loading} >
-                                Pesquisar
-                            </ButtonTouchable>
-                        </FormView>
-                         {transitionState !== State.Launching && (
-                            <Fragment>
-                                {rank && <Tier RankedStatus={rank}/>}
-                            </Fragment>
-                        )}
-                    </Container>        
-            </Background>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Background>
+                        <Container>
+                            <FormView>
+                                <Title>Pesquise o rank</Title>
+                                <Input 
+                                    placeholder="Nome de Invocador"
+                                    autoCorrect={false}
+                                    autoCapitalize="none"
+                                    returnkeytype="next"
+                                    value={nickname}
+                                    onChangeText={setNickname}
+                                />
+                                <ButtonTouchable onPress={HandleOnSubmit} loading={loading} >
+                                    Pesquisar
+                                </ButtonTouchable>
+                            </FormView>
+                             {transitionState !== State.Launching && (
+                                <Fragment>
+                                    {rank && <Tier RankedStatus={rank}/>}
+                                </Fragment>
+                            )}
+                        </Container>        
+                </Background>
+            </TouchableWithoutFeedback>
+            
         )
 }
 

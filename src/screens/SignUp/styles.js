@@ -10,15 +10,14 @@ export const Container = styled.KeyboardAvoidingView.attrs({
     behavior: 'height',
   })`
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 0 30px;
-    border:1px solid red;
+    padding: 45px 30px;
 `;
 
 export const Form = styled.View`
     align-self: stretch;
-    border: 1px solid red;
+    margin-top: 15px;
 `;
 
 export const FormInput = styled(Input)`

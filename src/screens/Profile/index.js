@@ -30,14 +30,7 @@ export default function Profile(){
 
 
     function handleSubmit() {
-        dispatch(
-          updateProfileRequest({
-            nickname,
-            email,
-            oldPassword,
-            password,
-          })
-        );
+        dispatch(updateProfileRequest({email, nickname, oldPassword, password}))
       }
 
       function handleSignOut(){
@@ -104,7 +97,7 @@ export default function Profile(){
                              </SignOutButton>
                          </Form>
                      </Container>
-                    </Background>
+                </Background>
             </TouchableWithoutFeedback>
         )
 }
