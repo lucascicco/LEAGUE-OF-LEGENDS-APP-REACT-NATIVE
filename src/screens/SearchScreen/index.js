@@ -14,7 +14,7 @@ const State = {
 
   
 export default function SearchScreen(){
-        const [rank,setRank] = useState()
+        const [rank,setRank] = useState([]);
         const [nickname, setNickname] = useState('')
         const [loading, setLoading] = useState(false)
         const [transitionState, setTransitionState] = useState(State.Launching)
@@ -98,5 +98,5 @@ SearchScreen.navigationOptions = {
     tabBarLabel: 'Pesquisar',
     tabBarIcon: ({ tintColor }) =>  (
         <MaterialIcons name="search" size={20} color={tintColor} />
-    )  
+    )
 }

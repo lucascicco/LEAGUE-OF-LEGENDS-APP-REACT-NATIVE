@@ -52,7 +52,7 @@ class Dashboard extends React.Component{
             })
 
             this.setState({ ranked: responseTier.data })
-            console.log('Sendo chamada')
+
         }catch(e){
             Alert.alert(
                 'Erro no sistema',
@@ -115,7 +115,7 @@ class Dashboard extends React.Component{
     }   
 
     async componentDidMount(){
-        console.log(this.props.profile)
+      
         await this.HandleGrabRanked()
         this.setState({ loading: false })
 
