@@ -26,22 +26,25 @@ In a general context, the main libraries used:
 - redux-saga
 - styled-components
 
-## Screenshots
+## Capturas de telas - Screenshoots
 
-<div align=center>
-    <span align=center>
-     <img src="assets/screenshots/1.jpeg" width=200 height=300/>
-     <img src="assets/screenshots/2.jpeg" width=200 height=300/>
-     <img src="assets/screenshots/3.jpeg" width=200 height=300/>
+<p align=center> 
+    <span>
+        <img src="assets/screenshots/1.jpeg" width=200 height=300/>
+        <img src="assets/screenshots/2.jpeg" width=200 height=300/>
+        <img src="assets/screenshots/3.jpeg" width=200 height=300/>
     </span>
-  <br/>
-    <span align=center>
-       <img src="assets/screenshots/4.jpeg" width=200 height=300/>
-       <img src="assets/screenshots/5.jpeg" width=200 height=300/>
-       <img src="assets/screenshots/6.jpeg" width=200 height=300/>
-   </span>
-   <span align=center>
-       <img src="assets/screenshots/7.jpeg" width=200 height=300/>
-       <img src="assets/screenshots/8.jpeg" width=200 height=300/>
-   </span>
-</div>
+    <br/>
+    <span>
+        <img src="assets/screenshots/4.jpeg" width=200 height=300/>
+        <img src="assets/screenshots/5.jpeg" width=200 height=300/>
+        <img src="assets/screenshots/6.jpeg" width=200 height=300/>
+    </span>
+    <br/>
+    <span>
+        <img src="assets/screenshots/7.jpeg" width=200 height=300/>
+        <img src="assets/screenshots/8.gif" width=200 height=300/>
+    </span>
+</p>
+
+
