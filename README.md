@@ -48,3 +48,11 @@ In a general context, the main libraries used:
 </p>
 
 
+<hr/>
+
+Desenvolvido por, 
+
+Developed by,
+
+lucascicco.
+
