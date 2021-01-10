@@ -27,3 +27,21 @@ In a general context, the main libraries used:
 - styled-components
 
 ## Screenshots
+
+<div align=center>
+    <span align=center>
+     <img src="assets/screenshots/1.jpeg" width=200 height=300/>
+     <img src="assets/screenshots/2.jpeg" width=200 height=300/>
+     <img src="assets/screenshots/3.jpeg" width=200 height=300/>
+    </span>
+  <br/>
+    <span align=center>
+       <img src="assets/screenshots/4.jpeg" width=200 height=300/>
+       <img src="assets/screenshots/5.jpeg" width=200 height=300/>
+       <img src="assets/screenshots/6.jpeg" width=200 height=300/>
+   </span>
+   <span align=center>
+       <img src="assets/screenshots/7.jpeg" width=200 height=300/>
+       <img src="assets/screenshots/8.jpeg" width=200 height=300/>
+   </span>
+</div>
