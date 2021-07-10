@@ -10,7 +10,7 @@ O aplicativo foi criado com **react-native**, consiste em uma aplicação está 
 sendo então, o front-end mobile, onde o usuário cria uma conta com e-mail e senha, e logo após, cadastra seu nickname no jogo, baseado nessas informações e de acordo com cada tela  renderizada, os dados são
 expostos na tela do usuário. 
 
-The application was created with **react-native**, consists of an application that is interconnected with [LEAGUE-OF-LEGENDS-BACKEND-NODEJS](https://github.com/lucascicco/LEAGUE-OF-LEGENDS-BACKEND -NODEJS),
+The application was created with **react-native**, consists of an application that is interconnected with [LEAGUE-OF-LEGENDS-BACKEND-NODEJS](https://github.com/lucascicco/LEAGUE-OF-LEGENDS-BACKEND-NODEJS),
 then, the mobile front-end, where the user creates an account with email and password, and soon after, register their nickname in the game, based on this information and according to each rendered screen, the data is
 exposed on the user's screen.
 
